@@ -9,7 +9,7 @@ public class DayThree {
         System.out.println("Part 2 - sum of badge priorities: " + partTwo(input, priority));
     }
 
-    public static int partOne(String[] input, String priority) {
+    private static int partOne(String[] input, String priority) {
         final int[] sum = {0};
         final boolean[] done = {false};
         Arrays.stream(input).forEach(line -> {
@@ -31,7 +31,7 @@ public class DayThree {
         return sum[0];
     }
 
-    public static int partTwo(String[] input, String priority) {
+    private static int partTwo(String[] input, String priority) {
         int sum = 0;
         int count = 0;
         boolean done = false;
