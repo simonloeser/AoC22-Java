@@ -8,10 +8,11 @@ public class DayFive {
         String[] input = ReadInput.getText("DayFive");
 
         System.out.println("After the rearrangement procedure completes, what crate ends up on top of each stack?");
-        System.out.println("Answer: " + partOne(input));
+        System.out.println("Answer part 1: " + partOneAndTwoLol(input, 1));
+        System.out.println("Answer part 2: " + partOneAndTwoLol(input, 2));
     }
 
-    private static String partOne(String[] input) {
+    private static String partOneAndTwoLol(String[] input, int part) {
         ArrayList<String> startConfigList = new ArrayList<>();
         ArrayList<Stack<String>> stackList = new ArrayList<>();
         boolean startFinished = false;
@@ -19,11 +20,12 @@ public class DayFive {
             if (line.equals("") && !startFinished) {
                 startFinished = true;
 
+                // Extract number of needed stacks
                 String s = startConfigList.get(startConfigList.size() - 1).trim();
                 int stacks = Integer.parseInt(s.substring(s.lastIndexOf(" ") + 1));
                 startConfigList.remove(startConfigList.size() - 1);
 
-                // Fill stacks and save them
+                // Fill stacks and save them in ArrayList
                 for (int i = 0; i < stacks; i++) {
                     Stack<String> newStack = new Stack<>();
                     for (int j = 0; j < startConfigList.size(); j++) {
@@ -50,9 +52,22 @@ public class DayFive {
                     moves.add(Integer.valueOf(m.group()));
                 }
 
-                // Make moves
-                for (int i = 0; i < moves.get(0); i++) {
-                    stackList.get(moves.get(2) - 1).push(stackList.get(moves.get(1) - 1).pop());
+                if (part == 1) {
+                    // Make moves part 1
+                    for (int i = 0; i < moves.get(0); i++) {
+                        stackList.get(moves.get(2) - 1).push(stackList.get(moves.get(1) - 1).pop());
+                    }
+                } else if (part == 2) {
+                    // Make moves part 2
+                    ArrayList<String> reverse = new ArrayList<>();
+                    for (int i = 0; i < moves.get(0); i++) {
+                        reverse.add(stackList.get(moves.get(1) - 1).pop());
+                    }
+                    for (int j = 0; j < reverse.size(); j++) {
+                        stackList.get(moves.get(2) - 1).push(reverse.get(reverse.size() - 1 - j));
+                    }
+                } else {
+                    return "undefined";
                 }
             }
         }
@@ -61,9 +76,5 @@ public class DayFive {
             solution.append(stack.pop());
         }
         return solution.toString();
-    }
-
-    private static String partTwo(String[] input) {
-        return "";
     }
 }
