@@ -12,6 +12,7 @@ public class Main {
         // Solutions
         days.put(1, DayOne::solve);
         days.put(2, DayTwo::solve);
+        days.put(3, DayThree::solve);
 
         Scanner reader = new Scanner(System.in);
         int input = reader.nextInt();
