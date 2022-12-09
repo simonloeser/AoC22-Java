@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class DayThree {
     public static void solve() {
         String[] input = ReadInput.getText("DayThree");
@@ -7,24 +9,24 @@ public class DayThree {
     }
 
     public static int partOne(String[] input, String priority) {
-        int sum = 0;
-        boolean done = false;
-        for (String line : input) {
+        final int[] sum = {0};
+        final boolean[] done = {false};
+        Arrays.stream(input).forEach(line -> {
             String second = line.substring(line.length() / 2);
-            for (int i = 0; i < second.length(); i++) {
+            for (int i = 0; i < line.length() / 2; i++) {
                 for (int j = 0; j < second.length(); j++) {
                     if (line.charAt(i) == second.charAt(j)) {
-                        sum += priority.indexOf(line.charAt(i) + 1);
-                        done = true;
+                        sum[0] += priority.indexOf(line.charAt(i)) + 1;
+                        done[0] = true;
                         break;
                     }
                 }
-                if (done) {
-                    done = false;
+                if (done[0]) {
+                    done[0] = false;
                     break;
                 }
             }
-        }
-        return sum;
+        });
+        return sum[0];
     }
 }
