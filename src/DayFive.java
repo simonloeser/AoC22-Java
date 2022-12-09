@@ -57,7 +57,7 @@ public class DayFive {
                     for (int i = 0; i < moves.get(0); i++) {
                         stackList.get(moves.get(2) - 1).push(stackList.get(moves.get(1) - 1).pop());
                     }
-                } else if (part == 2) {
+                } else {
                     // Make moves part 2
                     ArrayList<String> reverse = new ArrayList<>();
                     for (int i = 0; i < moves.get(0); i++) {
@@ -66,8 +66,6 @@ public class DayFive {
                     for (int j = 0; j < reverse.size(); j++) {
                         stackList.get(moves.get(2) - 1).push(reverse.get(reverse.size() - 1 - j));
                     }
-                } else {
-                    return "undefined";
                 }
             }
         }
