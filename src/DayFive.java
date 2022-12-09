@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DayFive {
     public static void solve() {
@@ -28,7 +30,6 @@ public class DayFive {
                         int item = startConfigList.size() - 1 - j;
                         if (startConfigList.get(item).startsWith("[")) {
                             newStack.push(String.valueOf(startConfigList.get(item).charAt(1)));
-                            System.out.println(newStack);
                         }
                         if (startConfigList.get(item).length() >= 4) {
                             startConfigList.set(item, startConfigList.get(item).substring(4));
@@ -41,10 +42,25 @@ public class DayFive {
                     startConfigList.add(line);
                     continue;
                 }
-                // TODO: Make moves
+                // Extract moves
+                Pattern p = Pattern.compile("-?\\d+");
+                Matcher m = p.matcher(line);
+                ArrayList<Integer> moves = new ArrayList<>();
+                while (m.find()) {
+                    moves.add(Integer.valueOf(m.group()));
+                }
+
+                // Make moves
+                for (int i = 0; i < moves.get(0); i++) {
+                    stackList.get(moves.get(2) - 1).push(stackList.get(moves.get(1) - 1).pop());
+                }
             }
         }
-        return "";
+        StringBuilder solution = new StringBuilder();
+        for (Stack<String> stack : stackList) {
+            solution.append(stack.pop());
+        }
+        return solution.toString();
     }
 
     private static String partTwo(String[] input) {
