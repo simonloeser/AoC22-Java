@@ -16,6 +16,7 @@ public class DayFive {
         ArrayList<String> startConfigList = new ArrayList<>();
         ArrayList<Stack<String>> stackList = new ArrayList<>();
         boolean startFinished = false;
+
         for (String line : input) {
             if (line.equals("") && !startFinished) {
                 startFinished = true;
@@ -30,9 +31,11 @@ public class DayFive {
                     Stack<String> newStack = new Stack<>();
                     for (int j = 0; j < startConfigList.size(); j++) {
                         int item = startConfigList.size() - 1 - j;
+
                         if (startConfigList.get(item).startsWith("[")) {
                             newStack.push(String.valueOf(startConfigList.get(item).charAt(1)));
                         }
+
                         if (startConfigList.get(item).length() >= 4) {
                             startConfigList.set(item, startConfigList.get(item).substring(4));
                         }
@@ -48,6 +51,7 @@ public class DayFive {
                 Pattern p = Pattern.compile("-?\\d+");
                 Matcher m = p.matcher(line);
                 ArrayList<Integer> moves = new ArrayList<>();
+
                 while (m.find()) {
                     moves.add(Integer.valueOf(m.group()));
                 }
@@ -60,9 +64,11 @@ public class DayFive {
                 } else {
                     // Make moves part 2
                     ArrayList<String> reverse = new ArrayList<>();
+
                     for (int i = 0; i < moves.get(0); i++) {
                         reverse.add(stackList.get(moves.get(1) - 1).pop());
                     }
+
                     for (int j = 0; j < reverse.size(); j++) {
                         stackList.get(moves.get(2) - 1).push(reverse.get(reverse.size() - 1 - j));
                     }
