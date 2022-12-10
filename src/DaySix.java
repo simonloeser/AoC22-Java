@@ -10,8 +10,7 @@ public class DaySix {
     private static int occurence(String[] input, int distinct) {
         String s = input[0];
         for (int i = 0; i < s.length(); i++) {
-            if (s.substring(i, i + distinct).chars().distinct().count() == distinct)
-            {
+            if (s.substring(i, i + distinct).chars().distinct().count() == distinct) {
                 return i + distinct;
             }
         }
