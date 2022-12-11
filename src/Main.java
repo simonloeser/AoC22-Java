@@ -17,6 +17,7 @@ public class Main {
         days.put(5, DayFive::solve);
         days.put(6, DaySix::solve);
         days.put(7, DaySeven::solve);
+        days.put(8, DayEight::solve);
 
         Scanner reader = new Scanner(System.in);
         int input = reader.nextInt();
