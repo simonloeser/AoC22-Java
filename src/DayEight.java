@@ -17,46 +17,54 @@ public class DayEight {
 
         int rows = layout.length;
         int cols = layout[0].length;
+        boolean[][] vis = new boolean[rows][cols];
+        // Iterate over array rows to find visible trees from the sides
+        for (int row = 0; row < rows; row++) {
+            int lastNode = -1;
+            // Visible from the right side
+            for (int col = cols - 1; col >= 0; col--) {
+                if (layout[row][col] > lastNode) {
+                    vis[row][col] = true;
+                    lastNode = layout[row][col];
+                }
+            }
 
+            // Visible from the left side
+            lastNode = -1;
+            for (int col = 0; col < cols; col++) {
+                if (layout[row][col] > lastNode) {
+                    vis[row][col] = true;
+                    lastNode = layout[row][col];
+                }
+            }
+
+
+        }
+
+        // Iterate over array cols to find visible trees from the top and bottom
+        for (int col = 0; col < cols; col++) {
+            int lastNode = -1;
+            // Visible from the bottom side
+            for (int row = rows - 1; row >= 0; row--) {
+                if (layout[row][col] > lastNode) {
+                    vis[row][col] = true;
+                    lastNode = layout[row][col];
+                }
+            }
+
+            lastNode = -1;
+            // Visible from the top side
+            for (int row = 0; row < rows; row++) {
+                if (layout[row][col] > lastNode) {
+                    vis[row][col] = true;
+                    lastNode = layout[row][col];
+                }
+            }
+        }
         int visibleTrees = 0;
-        // Iterate over array to find visible trees
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
-                boolean[] visible = {true, true, true, true};
-                // Tree visible from the right
-                for (int k = row + 1; k < rows - row - 1; k++) {
-                    if (layout[k][col] >= layout[row][col]) {
-                        visible[0] = false;
-                        break;
-                    }
-                }
-
-                // Tree visible from the left
-                for (int k = row - 1; k >= 0; k--) {
-                    if (layout[k][col] >= layout[row][col]) {
-                        visible[1] = false;
-                        break;
-                    }
-                }
-
-                // Tree visible from the top
-                for (int k = col - 1; k >= 0; k--) {
-                    if (layout[row][k] >= layout[row][col]) {
-                        visible[2] = false;
-                        break;
-                    }
-                }
-
-                // Tree visible from the bottom
-                for (int k = col + 1; k < cols - col - 1; k++) {
-                    if (layout[k][col] >= layout[row][col]) {
-                        visible[3] = false;
-                        break;
-                    }
-                }
-
-                // Visible from any side?
-                if (visible[0] || visible[1] || visible[2] || visible[3]) {
+                if (vis[row][col]) {
                     visibleTrees++;
                 }
             }
