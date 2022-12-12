@@ -15,19 +15,16 @@ public class DayEight {
             }
         }
 
-        int visibleTrees = 0;
-        boolean[] visible = {true, true, true, true};
-        // Iterate over array to find visible trees
-        for (int row = 0; row < layout.length; row++) {
-            for (int col = 0; col < layout[0].length; col++) {
-                // Tree on outer ring
-                if (row == 0 || row == layout[0].length - 1 || col == 0 || col == layout.length - 1) {
-                    visibleTrees++;
-                    continue;
-                }
+        int rows = layout.length;
+        int cols = layout[0].length;
 
+        int visibleTrees = 0;
+        // Iterate over array to find visible trees
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                boolean[] visible = {true, true, true, true};
                 // Tree visible from the right
-                for (int k = row + 1; k < layout.length - row - 1; k++) {
+                for (int k = row + 1; k < rows - row - 1; k++) {
                     if (layout[k][col] >= layout[row][col]) {
                         visible[0] = false;
                         break;
@@ -51,7 +48,7 @@ public class DayEight {
                 }
 
                 // Tree visible from the bottom
-                for (int k = col + 1; k < layout[0].length - col - 1; k++) {
+                for (int k = col + 1; k < cols - col - 1; k++) {
                     if (layout[k][col] >= layout[row][col]) {
                         visible[3] = false;
                         break;
